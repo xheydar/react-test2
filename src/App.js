@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function request_one()
 {
-    let url = "http://46.59.46.74:26547/api/data/validate/";
+    let url = "/api/data/validate/";
 
     var data = {}
     data["data_type"] = "survey"
