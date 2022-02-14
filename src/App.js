@@ -72,7 +72,7 @@ function App() {
     const [ surveyCode, setSurveyCode ] = useState( "" )
     const [ languages, setLanguages ] = useState( [] )
     const [ language, setLanguage ] = useState( "" )
-    const [ surveyData, setSurveyData ] = useState( {} )
+    //const [ surveyData, setSurveyData ] = useState( {} )
 
     function submitReference()
     {
@@ -84,7 +84,7 @@ function App() {
             return
         }
 
-        setSurveyData( data )
+        //setSurveyData( data )
         setAppState( 1 )
         setLanguages( data.content.data.module_data.languages )
     }
