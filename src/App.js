@@ -91,7 +91,7 @@ function App() {
 
     function selectLanguage()
     {
-        if( language != "" )
+        if( language !== "" )
         {
             setAppState(2);
         }
