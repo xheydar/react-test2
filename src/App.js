@@ -49,7 +49,7 @@ function request_survey( surveyCode )
     data = {}
     data['data_module'] = info.data_module
     
-    var response = httpPost( content_url, JSON.stringify(data) )
+    response = httpPost( content_url, JSON.stringify(data) )
 
     success = response.status === 200
 
