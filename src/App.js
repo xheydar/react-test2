@@ -1,10 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Container from 'react-bootstrap/Container';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Title from './Components/Title'
+import Introduction from './Components/Introduction'
+import FinalNotes from './Components/FinalNotes'
+import Questions from './Components/Questions'
 
 import { useState } from 'react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function httpPost(theUrl, data, headers={})
 {
@@ -72,7 +78,7 @@ function App() {
     const [ surveyCode, setSurveyCode ] = useState( "" )
     const [ languages, setLanguages ] = useState( [] )
     const [ language, setLanguage ] = useState( "" )
-    //const [ surveyData, setSurveyData ] = useState( {} )
+    const [ moduleData, setModuleData ] = useState({})
 
     function submitReference()
     {
@@ -84,9 +90,9 @@ function App() {
             return
         }
 
-        //setSurveyData( data )
         setAppState( 1 )
         setLanguages( data.content.data.module_data.languages )
+        setModuleData( data.content.data.module_data )
     }
 
     function selectLanguage()
@@ -121,11 +127,12 @@ function App() {
             </Modal.Header>
             <Modal.Body>
                 <Form.Select aria-label="Select languages"
-                             onChange={ e => { setLanguage( e.target.value )}}>
-                    <option value="" selected disabled hidden>Choose here</option>
+                             onChange={ e => { setLanguage( e.target.value )}}
+                             defaultValue={'DEFAULT'}>
+                    <option value="DEFAULT" disabled hidden>Choose here</option>
                     {
-                        languages.map( (l) => 
-                            <option value={l}>{l}</option>
+                        languages.map( (l,index) => 
+                            <option value={l} key={index}>{l}</option>
                         )
                     }
                 </Form.Select>
@@ -136,8 +143,23 @@ function App() {
             </Modal>
             
             { appState === 2 &&
-                
-                <p>Survey Goes Here!</p>
+                <Container>
+                    { 'title' in moduleData &&
+                        <Title language={language} moduleData={moduleData} />
+                    }
+
+                    { 'introduction' in moduleData &&
+                       <Introduction language={language} moduleData={moduleData} /> 
+                    }
+
+                    { 'questions' in moduleData && 
+                       <Questions language={language} moduleData={moduleData} /> 
+                    }
+
+                    { 'final_notes' in moduleData &&
+                       <FinalNotes language={language} moduleData={moduleData} />
+                    }
+                </Container>
 
             }
         </>
